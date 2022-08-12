@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+  beer-catalog-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - beer-catalog-backend
+    container_name: beer-catalog-frontend
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    networks:
+      - node-network
+
+  beer-catalog-backend:
+    image: antoniomarfer/beer-catalog-backend:latest
+    container_name: beer-catalog-backend
+    restart: unless-stopped
+    environment:
+      - MONGODB_SERVER=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USERNAME=myUser
+      - MONGODB_PASSWORD=myPassword
+      - MONGODB_DBNAME=admin
+    ports:
+      - "3000:3000"
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo:4.4.15
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: myUser
+      MONGO_INITDB_ROOT_PASSWORD: myPassword
+    ports:
+      - "27017:27017"
+    networks:
+      - node-network  
+
+networks:
+  node-network:
+    driver: bridge

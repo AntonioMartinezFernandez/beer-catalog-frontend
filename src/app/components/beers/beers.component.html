@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row col-md-6 mt-3 mx-auto">
+    <div class="col p-1">
+      <div class="ng-autocomplete">
+        <ng-autocomplete
+          [data]="searchValues.termValues"
+          [searchKeyword]="searchValues.term"
+          placeholder="Name, Ingredient, ..."
+          (selected)="selectEvent($event)"
+          (inputChanged)="onChangeSearch($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 mt-4">
+    <label class="form-label"><h2>Beers</h2></label>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let beer of beers">
+        <h5>
+          <a href="/beer/{{ beer.id }}">{{ beer.name }}</a>
+        </h5>
+        <h6>{{ beer.tagline }}</h6>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-3 mt-4">
+    <label class="form-label"><h4>Top first brewed</h4></label>
+    <ul class="list-group right-list">
+      <li class="list-group-item" *ngFor="let topBeer of topTenBeers">
+        <h6>
+          <a href="/beer/{{ topBeer.id }}">{{ topBeer.name }}</a>
+        </h6>
+        <p>{{ topBeer.first_brewed }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

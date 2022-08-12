@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+.navbar {
+    font-family: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, Arial, sans-serif;
+  }
+
+  .nav-link{
+    cursor: pointer;
+  }
+
+  .list-group-item{
+    border: none;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .right-list{
+    border: solid 1px #ced4da;
+    border-radius: 3px;
+  }
+
+  .product{border:none}
