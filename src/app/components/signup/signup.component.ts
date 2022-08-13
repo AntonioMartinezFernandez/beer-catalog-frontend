@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -9,12 +10,23 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+  public signupForm: FormGroup;
+
   user = {
     email: '',
     password: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.signupForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
 
   ngOnInit(): void {}
 

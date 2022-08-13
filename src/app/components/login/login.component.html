@@ -3,29 +3,49 @@
     <div class="card">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form (submit)="login()">
+        <form [formGroup]="loginForm" (submit)="login()">
           <div class="mb-3">
             <label class="form-label">Email</label>
             <input
               type="email"
-              [(ngModel)]="user.email"
+              id="email"
+              formControlName="email"
               name="email"
               class="form-control"
               placeholder="name@example.com"
             />
+            <span
+              [hidden]="loginForm.get('email')?.valid"
+              class="text-danger fst-italic"
+            >
+              Required email
+            </span>
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
             <input
               type="password"
-              [(ngModel)]="user.password"
+              id="password"
+              formControlName="password"
               name="password"
               class="form-control"
               placeholder="********"
             />
+            <span
+              [hidden]="loginForm.get('password')?.valid"
+              class="text-danger fst-italic"
+            >
+              Required password with minimum 8 characters
+            </span>
           </div>
           <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button
+              [disabled]="loginForm.invalid"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
           </div>
         </form>
       </div>
