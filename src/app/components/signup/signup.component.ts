@@ -12,11 +12,6 @@ import { AuthService } from '../../services/auth.service';
 export class SignupComponent implements OnInit {
   public signupForm: FormGroup;
 
-  user = {
-    email: '',
-    password: '',
-  };
-
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -31,10 +26,15 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   signup() {
-    this.authService.signup(this.user).subscribe({
-      next: this.handleResponse.bind(this),
-      error: this.handleError.bind(this),
-    });
+    this.authService
+      .signup({
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+      })
+      .subscribe({
+        next: this.handleResponse.bind(this),
+        error: this.handleError.bind(this),
+      });
   }
 
   handleResponse(response: any) {
